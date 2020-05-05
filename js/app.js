@@ -69,10 +69,12 @@ function cargarNombres(e) {
 
 //Refactorizar con Fetch API
 fetch(url)
-    .then(function(res){
-        return res.json();
-    })
-    .then(function(data) {
+    //.then(function(res){
+        //return res.json();
+    //})
+    .then(res => res.json())
+  //.then(function(data) {
+    .then(data => {
         //console.log(data);
 
         // Generar el HTML
@@ -91,7 +93,8 @@ fetch(url)
 
         document.getElementById('resultado').innerHTML = htmlNombres;
     })
-    .catch(function(error){
-        console.log(error);
-    })
+    //.catch(function(error){
+        //console.log(error);
+    //})
+    .catch(error => console.log(error));
 }
