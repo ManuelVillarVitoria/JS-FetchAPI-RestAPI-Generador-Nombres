@@ -16,6 +16,7 @@ function cargarNombres(e) {
     const cantidad = document.getElementById('numero').value;
 
     let url = '';
+       
     url += 'https://uinames.com/api/?';
     //Si hay origen agregarlo a la URL
     if(origenSeleccionado !== '') {
@@ -29,6 +30,37 @@ function cargarNombres(e) {
      if(cantidad !== '') {
         url+= 'amount=${cantidad}&';
     }
-    console.log(url)
-  
+    //console.log(url)
+    //Conectar con Ajax
+    //Iniciar con XMLHttpRequest
+    const xhr = new XMLHttpRequest();
+    // Abrimos la conexión
+    xhr.open('GET',url,true);
+    //Datos e impresión del template
+
+    xhr.onload = function() {
+      
+        if(this.status === 200){
+            //console.log(this.responseText)
+            const nombres = JSON.parse( this.responseText ) ;
+               // Generar el HTML
+               let htmlNombres = '<h2>Nombres Generados</h2>';
+               
+               htmlNombres += '<ul class="lista">';
+
+               // Imprimir cada nombre
+               nombres.forEach(function(nombre) {
+                    htmlNombres += `
+                              <li>${nombre.name}
+                    `;
+               })
+
+               htmlNombres += '</ul>';
+
+               document.getElementById('resultado').innerHTML = htmlNombres;
+          }
+     }
+
+    //Enviar el request
+    xhr.send();
 }
